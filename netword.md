@@ -21,3 +21,6 @@ step4: From these correlations, the p-values are then calculated:
 ```
 fastspar_pvalues --otu_table data1.txt --correlation median_correlation.tsv --prefix bootstrapcorrelation/cor --permutations 1000 --outfile pvalues.tsv > log4
 ```
+output files are in data folder : median_correlation.tsv and pvalues.tsv , remove "#" from the files before opening in R
+
+Step5: Take the correlation of Pseudomonas ASVs with ANPR and Mesorisubiums from correlation matri
