@@ -34,6 +34,15 @@ make.contigs(file=FastqFiles.txt, processors=12)
 ```
 This command will also produce several files that you will need down the road: stability.trim.contigs.fasta and stability.contigs.count_table. These contain the sequence data and group identity for each sequence. The stability.contigs.report file will tell you something about the contig assembly for each read. Let’s see what these sequences look like using the summary.seqs command:
 
+ FastqFiles.scrap.contigs.fasta
+ FastqFiles.trim.contigs.fasta
+ FastqFiles.contigs.count_table
+ FastqFiles.contigs_report
+ mothur.1664548140.logfile
+
+```
+ File_FastqInfo.B5.*
+```
 
 
 
