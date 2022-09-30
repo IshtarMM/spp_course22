@@ -26,12 +26,13 @@ Q: What is in the ‘File_FastqInfo.txt’ file? What information is it giving m
 ```
 fastq.info(file=File_FastqInfo.txt, oligos=barcodes_practical.txt, bdiffs=2, fasta=F, qfile=F)
 ```
+Do not run this command! We already did it for you and the results are already in the folder. It’s the ‘File_FastqInfo...’ files.
 This next step will pair single reads into paired-end reads and creates contigs.
-Let’s do this with the “make.contigs” command.
+Let’s do this with the “make.contigs” command. (2-3min)
 ```
-make.contigs(file=Undetermined_S0_L001_R1_001.files, processors=2)
+make.contigs(file=FastqFiles.txt, processors=12)
 ```
-
+This command will also produce several files that you will need down the road: stability.trim.contigs.fasta and stability.contigs.count_table. These contain the sequence data and group identity for each sequence. The stability.contigs.report file will tell you something about the contig assembly for each read. Let’s see what these sequences look like using the summary.seqs command:
 
 
 
