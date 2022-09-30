@@ -129,4 +129,23 @@ Output File Names:
 FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.0.03.rep.count_table
 FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.0.03.rep.fasta
 
+ASVs🔗
+
+OTUs generally represent sequences that are not more than 3% different from each other. In contrast, ASVs (aka ESVs) strive to differentiate sequences into separate OTUs if they are different from each other. There are challenges with this approach including the possibility of separating operons from the same genome into separate ASVs and that an ASV is typically really a cluster of sequences that are one or two bases apart from each other. Regardless, some people want to give this a go. The method built into mothur for identifying ASVs is pre.cluster. We did this above and then removed chimeras and contaminant sequences. We can convert the fasta and count_table files we used to form OTUs to a shared file using the make.shared command.
+```
+ make.shared(count=FastqFiles.trim.contigs.good.pick.count_table)
+```
+ASV
+
+Output File Names:
+FastqFiles.trim.contigs.good.pick.asv.list
+FastqFiles.trim.contigs.good.pick.asv.shared
+```
+classify.otu(taxonomy=FastqFiles.trim.contigs.good.unique.pick.SilvaDB.wang.taxonomy, list=FastqFiles.trim.contigs.good.pick.asv.list, count=FastqFiles.trim.contigs.good.pick.count_table)
+```
+#command line mode
+#dada2?
+
+
+
 
