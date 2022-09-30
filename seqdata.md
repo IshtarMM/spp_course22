@@ -95,10 +95,38 @@ cluster(fasta=FastqFiles.trim.contigs.good.unique.pick.fasta, count=FastqFiles.t
 Output File Names: 
 FastqFiles.trim.contigs.good.unique.pick.dgc.list
 
+```
+split.abund(fasta=FastqFiles.trim.contigs.good.unique.pick.fasta, count=FastqFiles.trim.contigs.good.pick.count_table, list=FastqFiles.trim.contigs.good.unique.pick.dgc.list, cutoff=50)
+```
+Output File Names: 
+FastqFiles.trim.contigs.good.unique.pick.dgc.0.03_OTUS.rare.accnos
+FastqFiles.trim.contigs.good.unique.pick.dgc.0.03_OTUS.abund.accnos
+FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.rare.list
+FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.list
+FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.rare.accnos
+FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.accnos
+FastqFiles.trim.contigs.good.pick.0.03.rare.count_table
+FastqFiles.trim.contigs.good.unique.pick.0.03.rare.fasta
+FastqFiles.trim.contigs.good.pick.0.03.abund.count_table
+FastqFiles.trim.contigs.good.unique.pick.0.03.abund.fasta
 
+```
+classify.otu(taxonomy=FastqFiles.trim.contigs.good.unique.pick.SilvaDB.wang.taxonomy, list=FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.list, count=FastqFiles.trim.contigs.good.pick.0.03.abund.count_table)
+```
+Output File Names: 
+FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.0.03.cons.taxonomy
+FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.0.03.cons.tax.summary
+```
+make.shared(list=FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.list, count=FastqFiles.trim.contigs.good.pick.0.03.abund.count_table)
+```
+Output File Names:
+FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.shared
 
-
-
-
+```
+get.oturep(fasta=FastqFiles.trim.contigs.good.unique.pick.0.03.abund.fasta, list=FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.list, count=FastqFiles.trim.contigs.good.pick.0.03.abund.count_table, method=abundance)
+```
+Output File Names: 
+FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.0.03.rep.count_table
+FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.0.03.rep.fasta
 
 
