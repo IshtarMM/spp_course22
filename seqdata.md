@@ -43,7 +43,18 @@ This command will also produce several files that you will need down the road: s
 ```
  File_FastqInfo.B5.*
 ```
-
+14s
+```
+screen.seqs(fasta=FastqFiles.trim.contigs.fasta, count=FastqFiles.contigs.count_table,contigsreport= FastqFiles.contigs_report, minoverlap=5, maxambig=0, maxhomop=10, minlength=100, maxlength=600, processors=12)
+```
+Output File Names:
+FastqFiles.good.[extension]
+FastqFiles.trim.contigs.good.fasta
+FastqFiles.trim.contigs.bad.accnos
+FastqFiles.contigs.good.count_table
+```
+rename.seqs(fasta=Undetermined_S0_L001_R1_001.trim.contigs.good.fasta, group=Undetermined_S0_L001_R1_001.contigs.good.groups)
+```
 
 
 
