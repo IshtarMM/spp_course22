@@ -53,8 +53,48 @@ FastqFiles.trim.contigs.good.fasta
 FastqFiles.trim.contigs.bad.accnos
 FastqFiles.contigs.good.count_table
 ```
-rename.seqs(fasta=Undetermined_S0_L001_R1_001.trim.contigs.good.fasta, group=Undetermined_S0_L001_R1_001.contigs.good.groups)
+####rename.seqs(fasta=FastqFiles.trim.contigs.good.fasta, group=Undetermined_S0_L001_R1_001.contigs.good.groups)
 ```
+```
+unique.seqs(fasta=FastqFiles.trim.contigs.good.fasta, count=FastqFiles.contigs.good.count_table)
+```
+Output File Names: 
+FastqFiles.trim.contigs.good.unique.fasta
+FastqFiles.trim.contigs.good.count_table
+
+```
+chimera.vsearch(fasta=FastqFiles.trim.contigs.good.unique.fasta, count=FastqFiles.trim.contigs.good.count_table, processors=12)
+```
+Output File Names:
+FastqFiles.trim.contigs.good.unique.denovo.vsearch.chimeras
+FastqFiles.trim.contigs.good.unique.denovo.vsearch.accnos
+FastqFiles.trim.contigs.good.denovo.vsearch.count_table
+FastqFiles.trim.contigs.good.unique.denovo.vsearch.fasta
+
+```
+remove.seqs(accnos=FastqFiles.trim.contigs.good.unique.denovo.vsearch.accnos, fasta=FastqFiles.trim.contigs.good.unique.fasta, count=FastqFiles.trim.contigs.good.count_table)
+```
+Output File Names:
+FastqFiles.trim.contigs.good.unique.pick.fasta
+FastqFiles.trim.contigs.good.pick.count_table
+
+
+15-20 min. stop and transfer from cheat files
+```
+classify.seqs(fasta=FastqFiles.trim.contigs.good.unique.pick.fasta, template=SilvaDB.fasta, taxonomy=SilvaDB.tax, processors=12) 
+```
+Output File Names: 
+FastqFiles.trim.contigs.good.unique.pick.SilvaDB.wang.taxonomy
+FastqFiles.trim.contigs.good.unique.pick.SilvaDB.wang.tax.summary
+FastqFiles.trim.contigs.good.unique.pick.SilvaDB.wang.flip.accnos
+
+```
+cluster(fasta=FastqFiles.trim.contigs.good.unique.pick.fasta, count=FastqFiles.trim.contigs.good.pick.count_table, method=dgc, cutoff=0.03)
+```
+
+Output File Names: 
+FastqFiles.trim.contigs.good.unique.pick.dgc.list
+
 
 
 
