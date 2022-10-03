@@ -142,19 +142,26 @@ Output File Names:
 - FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.0.03.cons.taxonomy
 - FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.0.03.cons.tax.summary
 
+ ## Step11:make final OTU table
 
+All these list files and count files are a bit too complicated… So now we want to create a simple file indicating the number of sequences per OTU and per sample (OTU table). For this we use the share command to create a share file using the abundance filtered “list” and “count” files from **step 9**.
 ```
 make.shared(list=FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.list, count=FastqFiles.trim.contigs.good.pick.0.03.abund.count_table)
 ```
 Output File Names:
-FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.shared
+- FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.shared
+
+ ## Step12:retrieve the fasta sequences associated to each of these OTUs
+So now we have a nice OTU table we can work with! This table is associated to the cons.taxonomy file created in **step 10** (FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.0.03.cons.taxonomy) which gives the OTU taxonomical classification. Now we want to retrieve the fasta sequences associated to each of these OTUs. Because each OTU is constituted of up to 13K sequences it makes no sense to retrieve all of them, so we’ll retrieve OTU representative sequences.
 
 ```
 get.oturep(fasta=FastqFiles.trim.contigs.good.unique.pick.0.03.abund.fasta, list=FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.list, count=FastqFiles.trim.contigs.good.pick.0.03.abund.count_table, method=abundance)
 ```
 Output File Names: 
-FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.0.03.rep.count_table
-FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.0.03.rep.fasta
+- FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.0.03.rep.count_table
+- FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.0.03.rep.fasta
+
+
 
 ASVs🔗
 
@@ -171,7 +178,7 @@ FastqFiles.trim.contigs.good.pick.asv.shared
 classify.otu(taxonomy=FastqFiles.trim.contigs.good.unique.pick.SilvaDB.wang.taxonomy, list=FastqFiles.trim.contigs.good.pick.asv.list, count=FastqFiles.trim.contigs.good.pick.count_table)
 ```
 #command line mode
-#dada2?
+
 
 
 
