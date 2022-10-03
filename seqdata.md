@@ -1,4 +1,5 @@
 # Hands-on Session - amplicon sequencing data prossesing using "mothur" pipline
+**Step1:
 Make an environment via conda and Install “mothur” and “jupyter lab” 
 ```
 conda create -n myenv -c conda-forge -c bioconda  jupyterlab  r-irkernel mothur
