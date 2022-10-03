@@ -57,7 +57,7 @@ Output File Names:
 - FastqFiles.contigs.good.count_table
 
 
-## Step5:unique sequences
+## Step5:unique sequences:
 We anticipate that many of our sequences are duplicates of each other. Because it’s computationally wasteful to align the same thing a bazillion times, we’ll unique our sequences using the unique.seqs command
 
 ```
@@ -67,7 +67,7 @@ Output File Names:
 - FastqFiles.trim.contigs.good.unique.fasta
 - FastqFiles.trim.contigs.good.count_table
 
-## Step6:chimera detection
+## Step6:chimera detection:
 The chimera.vsearch command reads a fasta and count file or fasta file and reference file and outputs potentially chimeric sequences. The vsearch program is donated to the public domain, https://github.com/torognes/vsearch.
 
 ```
@@ -79,16 +79,20 @@ Output File Names:
 - FastqFiles.trim.contigs.good.denovo.vsearch.count_table
 - FastqFiles.trim.contigs.good.unique.denovo.vsearch.fasta
 
+## Step7:remove chimera:
+
+Let’s now remove all the identified chimeric sequences from our data
 
 ```
 remove.seqs(accnos=FastqFiles.trim.contigs.good.unique.denovo.vsearch.accnos, fasta=FastqFiles.trim.contigs.good.unique.fasta, count=FastqFiles.trim.contigs.good.count_table)
 ```
 Output File Names:
-FastqFiles.trim.contigs.good.unique.pick.fasta
-FastqFiles.trim.contigs.good.pick.count_table
+- FastqFiles.trim.contigs.good.unique.pick.fasta
+- FastqFiles.trim.contigs.good.pick.count_table
 
 
-15-20 min. stop and transfer from cheat files
+## Step8:classify our sequences:
+Now let’s use the 16S data base to classify our sequences using the “classify.seqs” command.(15-20 min)
 ```
 classify.seqs(fasta=FastqFiles.trim.contigs.good.unique.pick.fasta, template=SilvaDB.fasta, taxonomy=SilvaDB.tax, processors=12) 
 ```
