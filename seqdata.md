@@ -55,24 +55,30 @@ Output File Names:
 - FastqFiles.trim.contigs.good.fasta
 - FastqFiles.trim.contigs.bad.accnos
 - FastqFiles.contigs.good.count_table
-```
-####rename.seqs(fasta=FastqFiles.trim.contigs.good.fasta, group=Undetermined_S0_L001_R1_001.contigs.good.groups)
-```
+
+
+## Step5:unique sequences
+We anticipate that many of our sequences are duplicates of each other. Because it’s computationally wasteful to align the same thing a bazillion times, we’ll unique our sequences using the unique.seqs command
+
 ```
 unique.seqs(fasta=FastqFiles.trim.contigs.good.fasta, count=FastqFiles.contigs.good.count_table)
 ```
 Output File Names: 
-FastqFiles.trim.contigs.good.unique.fasta
-FastqFiles.trim.contigs.good.count_table
+- FastqFiles.trim.contigs.good.unique.fasta
+- FastqFiles.trim.contigs.good.count_table
+
+## Step6:chimera detection
+The chimera.vsearch command reads a fasta and count file or fasta file and reference file and outputs potentially chimeric sequences. The vsearch program is donated to the public domain, https://github.com/torognes/vsearch.
 
 ```
 chimera.vsearch(fasta=FastqFiles.trim.contigs.good.unique.fasta, count=FastqFiles.trim.contigs.good.count_table, processors=12)
 ```
 Output File Names:
-FastqFiles.trim.contigs.good.unique.denovo.vsearch.chimeras
-FastqFiles.trim.contigs.good.unique.denovo.vsearch.accnos
-FastqFiles.trim.contigs.good.denovo.vsearch.count_table
-FastqFiles.trim.contigs.good.unique.denovo.vsearch.fasta
+- FastqFiles.trim.contigs.good.unique.denovo.vsearch.chimeras
+- FastqFiles.trim.contigs.good.unique.denovo.vsearch.accnos
+- FastqFiles.trim.contigs.good.denovo.vsearch.count_table
+- FastqFiles.trim.contigs.good.unique.denovo.vsearch.fasta
+
 
 ```
 remove.seqs(accnos=FastqFiles.trim.contigs.good.unique.denovo.vsearch.accnos, fasta=FastqFiles.trim.contigs.good.unique.fasta, count=FastqFiles.trim.contigs.good.count_table)
