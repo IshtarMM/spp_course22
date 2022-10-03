@@ -2,7 +2,7 @@
 ## Step1: Install required programs
 Make an environment via conda and Install “mothur” and “jupyter lab” 
 ```
-conda create -n myenv -c conda-forge -c bioconda  jupyterlab  r-irkernel mothur
+conda create -n myenv -c conda-forge -c bioconda  mothur
 ```
 activate the environmrnt
 ```
