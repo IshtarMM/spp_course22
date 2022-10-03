@@ -1,5 +1,5 @@
 # Hands-on Session - amplicon sequencing data prossesing using "mothur" pipline
-**Step1:
+## Step1: Install required programs
 Make an environment via conda and Install “mothur” and “jupyter lab” 
 ```
 conda create -n myenv -c conda-forge -c bioconda  jupyterlab  r-irkernel mothur
@@ -11,12 +11,16 @@ conda activate myenv
 change working directory
 ```
 cd /mnt/volume/seqdata/
-```
-First, take a look at the output files from the Miseq machine:
 
-- Undetermined_S0_L001_I1_001.fastq 
-- Undetermined_S0_L001_R1_001.fastq
-- Undetermined_S0_L001_R2_001.fastq
+----
+
+**File Description**
+```
+#### First, take a look at the output files from the Miseq machine:
+
+- Forward.fastq 
+- Reverse.fastq
+- Index.fastq
 
 **Q: Why do we have 3 files? What does R1, I1 and R2 in the files names mean?**
 Normally you get the sequences from all samples together and you have to divide them this is called de-multiplexing. The first step is then to divide all the data into the different samples using the ‘fastq.info’ command.
