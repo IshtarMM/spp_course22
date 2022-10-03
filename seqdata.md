@@ -38,21 +38,23 @@ make.contigs(file=FastqFiles.txt, processors=12)
 ```
 This command will also produce several files that you will need down the road: stability.trim.contigs.fasta and stability.contigs.count_table. These contain the sequence data and group identity for each sequence. The stability.contigs.report file will tell you something about the contig assembly for each read. Let’s see what these sequences look like using the summary.seqs command:
 
- FastqFiles.scrap.contigs.fasta
- FastqFiles.trim.contigs.fasta
- FastqFiles.contigs.count_table
- FastqFiles.contigs_report
- mothur.1664548140.logfile
+ - FastqFiles.scrap.contigs.fasta
+ - FastqFiles.trim.contigs.fasta
+ - FastqFiles.contigs.count_table
+ - FastqFiles.contigs_report
+ - mothur.*.logfile
 
-## Step4: creates contigs:
+## Step4: screen sequences:
+The screen.seqs command enables you to keep sequences that fulfill certain user defined criteria
+
 ```
 screen.seqs(fasta=FastqFiles.trim.contigs.fasta, count=FastqFiles.contigs.count_table,contigsreport= FastqFiles.contigs_report, minoverlap=5, maxambig=0, maxhomop=10, minlength=100, maxlength=600, processors=12)
 ```
 Output File Names:
-FastqFiles.good.[extension]
-FastqFiles.trim.contigs.good.fasta
-FastqFiles.trim.contigs.bad.accnos
-FastqFiles.contigs.good.count_table
+- FastqFiles.good.[extension]
+- FastqFiles.trim.contigs.good.fasta
+- FastqFiles.trim.contigs.bad.accnos
+- FastqFiles.contigs.good.count_table
 ```
 ####rename.seqs(fasta=FastqFiles.trim.contigs.good.fasta, group=Undetermined_S0_L001_R1_001.contigs.good.groups)
 ```
