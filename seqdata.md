@@ -97,38 +97,52 @@ Now let’s use the 16S data base to classify our sequences using the “classif
 classify.seqs(fasta=FastqFiles.trim.contigs.good.unique.pick.fasta, template=SilvaDB.fasta, taxonomy=SilvaDB.tax, processors=12) 
 ```
 Output File Names: 
-FastqFiles.trim.contigs.good.unique.pick.SilvaDB.wang.taxonomy
-FastqFiles.trim.contigs.good.unique.pick.SilvaDB.wang.tax.summary
-FastqFiles.trim.contigs.good.unique.pick.SilvaDB.wang.flip.accnos
+- FastqFiles.trim.contigs.good.unique.pick.SilvaDB.wang.taxonomy
+- FastqFiles.trim.contigs.good.unique.pick.SilvaDB.wang.tax.summary
+- FastqFiles.trim.contigs.good.unique.pick.SilvaDB.wang.flip.accnos
+
+## Step9:cluster the reads into groups:
+Now that we have (individually) classified all the 16S reads we had let’s cluster the reads into groups (clusters) based on sequence similarity. These groups are called OTUs for Operational Taxonomical Units, a term used to describe technically defined microbial taxonomical groups.
 
 ```
 cluster(fasta=FastqFiles.trim.contigs.good.unique.pick.fasta, count=FastqFiles.trim.contigs.good.pick.count_table, method=dgc, cutoff=0.03)
 ```
 
 Output File Names: 
-FastqFiles.trim.contigs.good.unique.pick.dgc.list
+- FastqFiles.trim.contigs.good.unique.pick.dgc.list
+
+
+## Step9:cluster the reads into groups (OTUs):
+This command grouped the sequences into different OTUS creating a “.list” file. But what do we do with OTUs which include only 1 or 10 reads? Is this meaningfull or are these artefacts? We propose to keep only the OTUs with more than 50 reads. For this we do abundance filtering.
 
 ```
 split.abund(fasta=FastqFiles.trim.contigs.good.unique.pick.fasta, count=FastqFiles.trim.contigs.good.pick.count_table, list=FastqFiles.trim.contigs.good.unique.pick.dgc.list, cutoff=50)
 ```
+
 Output File Names: 
-FastqFiles.trim.contigs.good.unique.pick.dgc.0.03_OTUS.rare.accnos
-FastqFiles.trim.contigs.good.unique.pick.dgc.0.03_OTUS.abund.accnos
-FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.rare.list
-FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.list
-FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.rare.accnos
-FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.accnos
-FastqFiles.trim.contigs.good.pick.0.03.rare.count_table
-FastqFiles.trim.contigs.good.unique.pick.0.03.rare.fasta
-FastqFiles.trim.contigs.good.pick.0.03.abund.count_table
-FastqFiles.trim.contigs.good.unique.pick.0.03.abund.fasta
+- FastqFiles.trim.contigs.good.unique.pick.dgc.0.03_OTUS.rare.accnos
+- FastqFiles.trim.contigs.good.unique.pick.dgc.0.03_OTUS.abund.accnos
+- FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.rare.list
+- FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.list
+- FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.rare.accnos
+- FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.accnos
+- FastqFiles.trim.contigs.good.pick.0.03.rare.count_table
+- FastqFiles.trim.contigs.good.unique.pick.0.03.rare.fasta
+- FastqFiles.trim.contigs.good.pick.0.03.abund.count_table
+- FastqFiles.trim.contigs.good.unique.pick.0.03.abund.fasta
+
+ ## Step10:give a taxonomical classification to the OTUs
+On **step 8** we classified all of the sequences individually which created a taxonomy file giving the classification of each sequence (FastqFiles.trim.contigs.good.unique.pick.SilvaDB.wang.taxonomy). 
+Then, on **step 9** we grouped sequences into OTUs. In this step we will combine both outputs to give a taxonomical classification to the OTUs using the taxonomical classification of the individual sequences.
 
 ```
 classify.otu(taxonomy=FastqFiles.trim.contigs.good.unique.pick.SilvaDB.wang.taxonomy, list=FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.list, count=FastqFiles.trim.contigs.good.pick.0.03.abund.count_table)
 ```
 Output File Names: 
-FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.0.03.cons.taxonomy
-FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.0.03.cons.tax.summary
+- FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.0.03.cons.taxonomy
+- FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.0.03.cons.tax.summary
+
+
 ```
 make.shared(list=FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.list, count=FastqFiles.trim.contigs.good.pick.0.03.abund.count_table)
 ```
