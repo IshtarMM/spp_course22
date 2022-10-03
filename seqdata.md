@@ -11,27 +11,24 @@ conda activate myenv
 change working directory
 ```
 cd /mnt/volume/seqdata/
-
+```
 ----
 
 **File Description**
-```
+
 #### First, take a look at the output files from the Miseq machine:
 
-- Forward.fastq 
-- Reverse.fastq
-- Index.fastq
+- Forward.fastq :The sequencing reads from the forward strand
+- Reverse.fastq :The sequencing reads from the reverse strand
+- Index.fastq :The barcode reads at each coordination
 
-**Q: Why do we have 3 files? What does R1, I1 and R2 in the files names mean?**
-Normally you get the sequences from all samples together and you have to divide them this is called de-multiplexing. The first step is then to divide all the data into the different samples using the ‘fastq.info’ command.
-
-Q: For this command we have to provide the oligos file why?
-Q: What does bdiffs=2 mean?
-Q: What is in the ‘File_FastqInfo.txt’ file? What information is it giving mothur?
+## Step2: de-multiplexing:
+Normally you get the sequences from all samples together and you have to divide them this is called de-multiplexing. The first step is then to divide all 
 ```
 fastq.info(file=File_FastqInfo.txt, oligos=barcodes_practical.txt, bdiffs=2, fasta=F, qfile=F)
 ```
-Do not run this command! We already did it for you and the results are already in the folder. It’s the ‘File_FastqInfo...’ files.
+##### Do not run this command!
+We already did it for you and the results are already in the folder. It’s the ‘File_FastqInfo...’ files.
 This next step will pair single reads into paired-end reads and creates contigs.
 Let’s do this with the “make.contigs” command. (2-3min)
 ```
