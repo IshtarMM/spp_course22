@@ -29,6 +29,8 @@ fastq.info(file=File_FastqInfo.txt, oligos=barcodes_practical.txt, bdiffs=2, fas
 ```
 ##### Do not run this command!
 We already did it for you and the results are already in the folder. It’s the ‘File_FastqInfo...’ files.
+
+## Step3: creates contigs:
 This next step will pair single reads into paired-end reads and creates contigs.
 Let’s do this with the “make.contigs” command. (2-3min)
 ```
@@ -42,10 +44,7 @@ This command will also produce several files that you will need down the road: s
  FastqFiles.contigs_report
  mothur.1664548140.logfile
 
-```
- File_FastqInfo.B5.*
-```
-14s
+## Step4: creates contigs:
 ```
 screen.seqs(fasta=FastqFiles.trim.contigs.fasta, count=FastqFiles.contigs.count_table,contigsreport= FastqFiles.contigs_report, minoverlap=5, maxambig=0, maxhomop=10, minlength=100, maxlength=600, processors=12)
 ```
