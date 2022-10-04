@@ -2,7 +2,7 @@
 ## Step1: Install required programs
 connect to VM
 ```
- ssh -I your_public_key ubuntu@193.196.29.198 
+ ssh -I your_key ubuntu@193.196.29.198 
  ```
  ```
  ssh -i id_rsa ubuntu@134.2.2.210
