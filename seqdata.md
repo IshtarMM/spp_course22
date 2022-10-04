@@ -1,4 +1,4 @@
-# Hands-on Session - amplicon sequencing data prossesing using "mothur" pipline
+# Hands-on Session - amplicon sequencing data prossesing using "mothur" pipline https://mothur.org
 ## Step1: Install required programs
 connect to VM
 ```
