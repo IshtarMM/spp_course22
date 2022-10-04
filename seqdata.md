@@ -1,5 +1,10 @@
 # Hands-on Session - amplicon sequencing data prossesing using "mothur" pipline
 ## Step1: Install required programs
+conect to VM
+
+ ssh -I your_public_key ubuntu@193.196.29.198 
+ ssh -i id_rsa ubuntu@134.2.2.210
+ 
 Make an environment via conda and Install “mothur” and “jupyter lab” 
 ```
 conda create -n myenv -c conda-forge -c bioconda  mothur
