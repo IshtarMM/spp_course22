@@ -18,7 +18,7 @@ conda activate myenv
 ```
 change working directory
 ```
-cd /mnt/volume/seqdata/
+cd /mnt/volume/spp_workshop_2022/seqdata/
 ```
 ----
 
@@ -33,7 +33,7 @@ cd /mnt/volume/seqdata/
 ## Step2: de-multiplexing:
 Normally you get the sequences from all samples together and you have to divide them this is called de-multiplexing. The first step is then to divide all 
 ```
- ./mothur "#fastq.info(file=File_FastqInfo.txt, oligos=barcodes_practical.txt, bdiffs=2, fasta=F, qfile=F)"
+ mothur "#fastq.info(file=File_FastqInfo.txt, oligos=barcodes_practical.txt, bdiffs=2, fasta=F, qfile=F)"
 ```
 ##### Do not run this command!
 We already did it for you and the results are already in the folder. It’s the ‘File_FastqInfo...’ files.
@@ -43,7 +43,7 @@ This next step will pair single reads into paired-end reads and creates contigs.
 Let’s do this with the “make.contigs” command. (2-3min)
 ```
 
- ./mothur "#make.contigs(file=FastqFiles.txt, processors=12)"
+ mothur "#make.contigs(file=FastqFiles.txt, processors=12)"
 ```
 This command will also produce several files that you will need down the road: stability.trim.contigs.fasta and stability.contigs.count_table. These contain the sequence data and group identity for each sequence. The stability.contigs.report file will tell you something about the contig assembly for each read. Let’s see what these sequences look like using the summary.seqs command:
 
@@ -57,7 +57,7 @@ This command will also produce several files that you will need down the road: s
 The screen.seqs command enables you to keep sequences that fulfill certain user defined criteria
 
 ```
- ./mothur "#screen.seqs(fasta=FastqFiles.trim.contigs.fasta, count=FastqFiles.contigs.count_table,contigsreport= FastqFiles.contigs_report, minoverlap=5, maxambig=0, maxhomop=10, minlength=100, maxlength=600, processors=12)"
+ mothur "#screen.seqs(fasta=FastqFiles.trim.contigs.fasta, count=FastqFiles.contigs.count_table,contigsreport= FastqFiles.contigs_report, minoverlap=5, maxambig=0, maxhomop=10, minlength=100, maxlength=600, processors=12)"
 ```
 Output File Names:
 - FastqFiles.good.[extension]
@@ -70,7 +70,7 @@ Output File Names:
 We anticipate that many of our sequences are duplicates of each other. Because it’s computationally wasteful to align the same thing a bazillion times, we’ll unique our sequences using the unique.seqs command
 
 ```
-./mothur "#unique.seqs(fasta=FastqFiles.trim.contigs.good.fasta, count=FastqFiles.contigs.good.count_table)"
+mothur "#unique.seqs(fasta=FastqFiles.trim.contigs.good.fasta, count=FastqFiles.contigs.good.count_table)"
 ```
 Output File Names: 
 - FastqFiles.trim.contigs.good.unique.fasta
@@ -80,7 +80,7 @@ Output File Names:
 The chimera.vsearch command reads a fasta and count file or fasta file and reference file and outputs potentially chimeric sequences. The vsearch program is donated to the public domain, https://github.com/torognes/vsearch.
 
 ```
-./mothur "#chimera.vsearch(fasta=FastqFiles.trim.contigs.good.unique.fasta, count=FastqFiles.trim.contigs.good.count_table, processors=12)"
+mothur "#chimera.vsearch(fasta=FastqFiles.trim.contigs.good.unique.fasta, count=FastqFiles.trim.contigs.good.count_table, processors=12)"
 ```
 Output File Names:
 - FastqFiles.trim.contigs.good.unique.denovo.vsearch.chimeras
@@ -93,7 +93,7 @@ Output File Names:
 Let’s now remove all the identified chimeric sequences from our data
 
 ```
-./mothur "#remove.seqs(accnos=FastqFiles.trim.contigs.good.unique.denovo.vsearch.accnos, fasta=FastqFiles.trim.contigs.good.unique.fasta, count=FastqFiles.trim.contigs.good.count_table)"
+mothur "#remove.seqs(accnos=FastqFiles.trim.contigs.good.unique.denovo.vsearch.accnos, fasta=FastqFiles.trim.contigs.good.unique.fasta, count=FastqFiles.trim.contigs.good.count_table)"
 ```
 Output File Names:
 - FastqFiles.trim.contigs.good.unique.pick.fasta
@@ -103,7 +103,7 @@ Output File Names:
 ## Step8:classify our sequences:
 Now let’s use the 16S data base to classify our sequences using the “classify.seqs” command.(15-20 min)
 ```
-./mothur "#classify.seqs(fasta=FastqFiles.trim.contigs.good.unique.pick.fasta, template=SilvaDB.fasta, taxonomy=SilvaDB.tax, processors=12)"
+mothur "#classify.seqs(fasta=FastqFiles.trim.contigs.good.unique.pick.fasta, template=SilvaDB.fasta, taxonomy=SilvaDB.tax, processors=12)"
 ```
 Output File Names: 
 - FastqFiles.trim.contigs.good.unique.pick.SilvaDB.wang.taxonomy
@@ -114,7 +114,7 @@ Output File Names:
 Now that we have (individually) classified all the 16S reads we had let’s cluster the reads into groups (clusters) based on sequence similarity. These groups are called OTUs for Operational Taxonomical Units, a term used to describe technically defined microbial taxonomical groups.
 
 ```
-./mothur "#cluster(fasta=FastqFiles.trim.contigs.good.unique.pick.fasta, count=FastqFiles.trim.contigs.good.pick.count_table, method=dgc, cutoff=0.03)"
+mothur "#cluster(fasta=FastqFiles.trim.contigs.good.unique.pick.fasta, count=FastqFiles.trim.contigs.good.pick.count_table, method=dgc, cutoff=0.03)"
 ```
 
 Output File Names: 
@@ -125,7 +125,7 @@ Output File Names:
 This command grouped the sequences into different OTUS creating a “.list” file. But what do we do with OTUs which include only 1 or 10 reads? Is this meaningfull or are these artefacts? We propose to keep only the OTUs with more than 50 reads. For this we do abundance filtering.
 
 ```
-./mothur "#split.abund(fasta=FastqFiles.trim.contigs.good.unique.pick.fasta, count=FastqFiles.trim.contigs.good.pick.count_table, list=FastqFiles.trim.contigs.good.unique.pick.dgc.list, cutoff=50)"
+mothur "#split.abund(fasta=FastqFiles.trim.contigs.good.unique.pick.fasta, count=FastqFiles.trim.contigs.good.pick.count_table, list=FastqFiles.trim.contigs.good.unique.pick.dgc.list, cutoff=50)"
 ```
 
 Output File Names: 
@@ -145,7 +145,7 @@ On **step 8** we classified all of the sequences individually which created a ta
 Then, on **step 9** we grouped sequences into OTUs. In this step we will combine both outputs to give a taxonomical classification to the OTUs using the taxonomical classification of the individual sequences.
 
 ```
-./mothur "#classify.otu(taxonomy=FastqFiles.trim.contigs.good.unique.pick.SilvaDB.wang.taxonomy, list=FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.list, count=FastqFiles.trim.contigs.good.pick.0.03.abund.count_table)"
+mothur "#classify.otu(taxonomy=FastqFiles.trim.contigs.good.unique.pick.SilvaDB.wang.taxonomy, list=FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.list, count=FastqFiles.trim.contigs.good.pick.0.03.abund.count_table)"
 ```
 Output File Names: 
 - FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.0.03.cons.taxonomy
@@ -155,7 +155,7 @@ Output File Names:
 
 All these list files and count files are a bit too complicated… So now we want to create a simple file indicating the number of sequences per OTU and per sample (OTU table). For this we use the share command to create a share file using the abundance filtered “list” and “count” files from **step 9**.
 ```
-./mothur "#make.shared(list=FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.list, count=FastqFiles.trim.contigs.good.pick.0.03.abund.count_table)"
+mothur "#make.shared(list=FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.list, count=FastqFiles.trim.contigs.good.pick.0.03.abund.count_table)"
 ```
 Output File Names:
 - FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.shared
@@ -164,7 +164,7 @@ Output File Names:
 So now we have a nice OTU table we can work with! This table is associated to the cons.taxonomy file created in **step 10** (FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.0.03.cons.taxonomy) which gives the OTU taxonomical classification. Now we want to retrieve the fasta sequences associated to each of these OTUs. Because each OTU is constituted of up to 13K sequences it makes no sense to retrieve all of them, so we’ll retrieve OTU representative sequences.
 
 ```
-./mothur "#get.oturep(fasta=FastqFiles.trim.contigs.good.unique.pick.0.03.abund.fasta, list=FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.list, count=FastqFiles.trim.contigs.good.pick.0.03.abund.count_table, method=abundance)"
+mothur "#get.oturep(fasta=FastqFiles.trim.contigs.good.unique.pick.0.03.abund.fasta, list=FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.list, count=FastqFiles.trim.contigs.good.pick.0.03.abund.count_table, method=abundance)"
 ```
 Output File Names: 
 - FastqFiles.trim.contigs.good.unique.pick.dgc.0.03.abund.0.03.rep.count_table
@@ -176,7 +176,7 @@ ASVs🔗
 
 OTUs generally represent sequences that are not more than 3% different from each other. In contrast, ASVs (aka ESVs) strive to differentiate sequences into separate OTUs if they are different from each other. There are challenges with this approach including the possibility of separating operons from the same genome into separate ASVs and that an ASV is typically really a cluster of sequences that are one or two bases apart from each other. Regardless, some people want to give this a go. The method built into mothur for identifying ASVs is pre.cluster. We did this above and then removed chimeras and contaminant sequences. We can convert the fasta and count_table files we used to form OTUs to a shared file using the make.shared command.
 ```
- ./mothur "#make.shared(count=FastqFiles.trim.contigs.good.pick.count_table)"
+ mothur "#make.shared(count=FastqFiles.trim.contigs.good.pick.count_table)"
 ```
 ASV
 
@@ -186,7 +186,7 @@ Output File Names:
 
 ## Step14:give a taxonomical classification to the ASVs
 ```
-./mothur "#classify.otu(taxonomy=FastqFiles.trim.contigs.good.unique.pick.SilvaDB.wang.taxonomy, list=FastqFiles.trim.contigs.good.pick.asv.list, count=FastqFiles.trim.contigs.good.pick.count_table)"
+mothur "#classify.otu(taxonomy=FastqFiles.trim.contigs.good.unique.pick.SilvaDB.wang.taxonomy, list=FastqFiles.trim.contigs.good.pick.asv.list, count=FastqFiles.trim.contigs.good.pick.count_table)"
 ```
 
 
