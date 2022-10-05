@@ -24,7 +24,10 @@ change working directory
 cd /mnt/volume/spp_workshop_2022/seqdata/
 ```
 ----
-
+data also is in googledrive:
+```
+https://drive.google.com/drive/folders/1yrM2MmxhhKdxXm1Wubzb1Pqm6B88_wRF
+```
 **File Description**
 
 #### First, take a look at the output files from the Miseq machine:
